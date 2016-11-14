@@ -46,7 +46,7 @@ void gameWindow::setIcon(void)
 void gameWindow::setPosition(void)
 {
     const GLFWvidmode *videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	const int monitorX = videoMode->width; const int monitorY = videoMode->height;
+    const int monitorX = videoMode->width; const int monitorY = videoMode->height;
 	
 	glfwSetWindowPos
 	(
