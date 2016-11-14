@@ -18,10 +18,10 @@ gameWindow:: gameWindow(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, 					GL_TRUE);
-	glfwWindowHint(		  GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, 		    GL_TRUE);
+	glfwWindowHint(	      GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
-	window = glfwCreateWindow(800, 600, "GBox", NULL, NULL);
+	window = glfwCreateWindow(800, 600, "UrTrump", NULL, NULL);
 	
 	if(window == NULL)
 	{
@@ -68,7 +68,7 @@ void gameWindow::configureContext(void)
 
 	if(Result != GLEW_OK)
 	{
-    	printf("Error: Failed to initialize GLEW: %s. \n", glewGetErrorString(Result));
+    		printf("Error: Failed to initialize GLEW: %s. \n", glewGetErrorString(Result));
 		throw std::exception();
 	}
 }
