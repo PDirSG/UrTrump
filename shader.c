@@ -114,7 +114,7 @@ GLuint shader::loadProgram(const char *vertexShaderLocation, const char *fragmen
 	glDeleteShader(vertexShader);
 
 	if(!programLinkingStatus)
-    {
+        {
 		glDeleteProgram(program);
 		throw std::exception();
 	}
