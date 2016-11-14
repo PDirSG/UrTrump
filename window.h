@@ -10,7 +10,7 @@ class gameWindow
 
 	public:
 		gameWindow(void);
-	   ~gameWindow(void);
+	       ~gameWindow(void);
 
 		void configure(void)
 		{
