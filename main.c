@@ -15,6 +15,8 @@ void configure(void)
 
 	glEnable(GL_DEPTH_TEST); glDepthFunc(GL_LESS); glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	glClearColor(0.0, 0.0, 0.0, 1.0);
 
 	OpenALContext = std::make_unique<OpenAL>();
 }
@@ -26,9 +28,9 @@ void setupGame(void)
 
 void render(void)
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //...
+	//...
 }
 
 int main(void)
@@ -37,8 +39,6 @@ int main(void)
 	{
 		configure();
 		setupGame();
-
-	        glClearColor(1.0, 1.0, 1.0, 1.0);
 
 		gameRunning = true; while(gameRunning && !glfwWindowShouldClose(window->handler()))
 		{
