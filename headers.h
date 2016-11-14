@@ -15,7 +15,7 @@
 #	include "_BO.h"
 
 //#	include "model.h"
-//#	include "targa.h"
+//#	include "TARGA.h"
 
 //#	include "audio.h"
 
