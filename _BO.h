@@ -7,7 +7,7 @@ class _BO
 
 	public:
 		_BO(void);
-	   ~_BO(void);
+	       ~_BO(void);
 
 		//...
 };
