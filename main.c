@@ -5,8 +5,7 @@ std::unique_ptr<gameWindow> window; std::unique_ptr<OpenAL> OpenALContext;
 
 //Shader programs and other global variables...
 
-bool 
-	gameRunning = 0;
+bool gameRunning = false;
 
 void configure(void)
 {
@@ -29,7 +28,7 @@ void render(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//...
+    //...
 }
 
 int main(void)
@@ -39,7 +38,7 @@ int main(void)
 		configure();
 		setupGame();
 
-	    glClearColor(1.0, 1.0, 1.0, 1.0);
+	        glClearColor(1.0, 1.0, 1.0, 1.0);
 
 		gameRunning = true; while(gameRunning && !glfwWindowShouldClose(window->handler()))
 		{
