@@ -4,8 +4,8 @@
 #	include <signal.h>
 #	include <string.h>
 
-#   include <GL/glew.h>
-//An importer library for PNG...
+#	include <GL/glew.h>
+//Add an importer library for PNG...
 
 #	include <glm/glm.hpp>
 //...
