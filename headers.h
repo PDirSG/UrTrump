@@ -14,10 +14,10 @@
 #	include "VAO.h"
 #	include "_BO.h"
 
-//#	   include "model.h"
-//#    include "targa.h"
+//#	include "model.h"
+//#	include "targa.h"
 
-//#    include "audio.h"
+//#	include "audio.h"
 
 #endif
 
