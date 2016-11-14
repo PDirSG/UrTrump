@@ -6,10 +6,10 @@ class OpenAL
 	ALCdevice *device; ALCcontext *context;
 
 	public:
-		OpenAL(void);
+	    OpenAL(void);
 	   ~OpenAL(void);
 
-		//...
+	    //...
 };
 
 //...
