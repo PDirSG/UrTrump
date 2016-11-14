@@ -12,7 +12,7 @@
 #	include "shader.h"
 
 #	include "VAO.h"
-# include "_BO.h"
+#   include "_BO.h"
 
 //#	   include "model.h"
 //#    include "targa.h"
