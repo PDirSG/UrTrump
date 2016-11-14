@@ -12,7 +12,7 @@ class shader
 
 	public:
 		shader(const char *vertexShaderLocation, const char *fragmentShaderLocation);
-	   ~shader(void);
+	       ~shader(void);
 
 		void bind(void)
 		{
