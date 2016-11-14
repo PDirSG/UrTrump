@@ -12,10 +12,10 @@
 #	include "shader.h"
 
 #	include "VAO.h"
-//#    include "_BO.H"
+# include "_BO.h"
 
 //#	   include "model.h"
-//#    include "image.h"
+//#    include "targa.h"
 
 //#    include "audio.h"
 
