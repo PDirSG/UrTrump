@@ -4,7 +4,7 @@ GLuint shader::loadShader(const char *shaderLocation, GLenum shaderType)
 
     if(filePointer == NULL)
     {
-        printf("Error (%s): %s \n", shaderLocation, "Shader source does not exists!");
+        printf("Error (%s): %s. \n", shaderLocation, "Shader source does not exists!");
         return 0;
     }
 
@@ -16,7 +16,7 @@ GLuint shader::loadShader(const char *shaderLocation, GLenum shaderType)
         shaderSource[shaderLength] = '\0';
     if(fread(shaderSource, shaderLength, 1, filePointer) != 1)
     {
-        printf("Error (%s): %s \n", shaderLocation, "Failed to read the shader source.");
+        printf("Error (%s): %s. \n", shaderLocation, "Failed to read the shader source.");
 
         delete shaderSource;
         fclose(filePointer);
@@ -28,7 +28,7 @@ GLuint shader::loadShader(const char *shaderLocation, GLenum shaderType)
 
     GLuint shader = glCreateShader(shaderType); if(shader == 0)
     {
-        printf("Error (%s): %s \n", shaderLocation, "Failed to create shader.");
+        printf("Error (%s): %s. \n", shaderLocation, "Failed to create shader.");
 
         delete shaderSource;
         return 0;
