@@ -1,16 +1,16 @@
 #ifndef _BO_H
-#	define _BO_h
+#    define _BO_h
 
 class _BO
 {
-	GLuint bufferObject;
+    GLuint bufferObject;
 
-	public:
-		_BO(void);
-	       ~_BO(void);
-
-		//...
+    public:
+        _BO(void);
+       ~_BO(void);
+	   
+       //...
 };
 
-#	include "_BO.c"
+#    include "_BO.c"
 #endif

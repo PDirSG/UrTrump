@@ -1,18 +1,14 @@
 #ifndef OpenAL_H
-#	define OpenAL_H
+#    define OpenAL_H
 
 class OpenAL
 {
-	ALCdevice *device; ALCcontext *context;
+    ALCdevice *device; ALCcontext *context;
 
-	public:
-	    OpenAL(void);
-	   ~OpenAL(void);
-
-	    //...
+    public:
+        OpenAL(void);
+       ~OpenAL(void);
 };
 
-//...
-
-#	include "OpenAL.c"
+#    include "OpenAL.c"
 #endif

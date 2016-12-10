@@ -1,134 +1,165 @@
 GLuint shader::loadShader(const char *shaderLocation, GLenum shaderType)
 {
-	FILE *filePointer = fopen(shaderLocation, "r");
+    FILE *filePointer = fopen(shaderLocation, "r");
 
-	if(filePointer == NULL)
-	{
-		printf("Error: %s \n", "Shader source does not exists!");
+    if(filePointer == NULL)
+    {
+        printf("Error (%s): %s \n", shaderLocation, "Shader source does not exists!");
+        return 0;
+    }
+
+    fseek(filePointer, 0L, SEEK_END);
+    size_t shaderLength = ftell(filePointer);
+    fseek(filePointer, 0L, SEEK_SET);
+
+    GLchar *shaderSource = new GLchar[shaderLength + 1];
+        shaderSource[shaderLength] = '\0';
+    if(fread(shaderSource, shaderLength, 1, filePointer) != 1)
+    {
+        printf("Error (%s): %s \n", shaderLocation, "Failed to read the shader source.");
+
+        delete shaderSource;
+        fclose(filePointer);
+
 		return 0;
-	}
+    }
 
-	fseek(filePointer, 0L, SEEK_END);
-	size_t shaderLength = ftell(filePointer);
-	fseek(filePointer, 0L, SEEK_SET);
+    fclose(filePointer);
 
-	GLchar *shaderSource = new GLchar[shaderLength + 1]();
-	if(fread(shaderSource, shaderLength, 1, filePointer) != 1)
-	{
-		printf("Error: %s \n", "Failed to read shader source.");
-		throw std::exception();
-	}
+    GLuint shader = glCreateShader(shaderType); if(shader == 0)
+    {
+        printf("Error (%s): %s \n", shaderLocation, "Failed to create shader.");
 
-	fclose(filePointer);
+        delete shaderSource;
+        return 0;
+    }
+    glShaderSource(shader, 1, &shaderSource, NULL);
 
-	GLuint shader = glCreateShader(shaderType);
-	glShaderSource(shader, 1, &shaderSource, NULL);
-
-	delete shaderSource;
+    delete shaderSource;
 
 
 	glCompileShader(shader);
 
-	GLint shaderCompileStatus; glGetShaderiv(shader, GL_COMPILE_STATUS, &shaderCompileStatus);
-	if(!shaderCompileStatus)
+    GLint shaderCompileStatus; 
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &shaderCompileStatus);
+    
+    if(!shaderCompileStatus)
 	{
-		GLint infoLogLength; glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
-		GLchar *infoLog = new GLchar[infoLogLength];
+        GLint infoLogLength; 
+            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);	
+        GLchar *infoLog = new GLchar[infoLogLength];
 
-		glGetShaderInfoLog(shader, infoLogLength, &infoLogLength, infoLog);
-		printf("Error (%s): %s %s", shaderLocation, "Shader compiling error: ", infoLog);
+        glGetShaderInfoLog(shader, infoLogLength, &infoLogLength, infoLog);
+            glDeleteShader(shader);
+        printf("Error (%s): %s: %s. \n", shaderLocation, "Shader compiling error", infoLog);
 
-		delete infoLog;
+        delete infoLog;
 
+        return 0;
+    }
 
-		glDeleteShader(shader);
-		return 0;
-	}
-
-	return shader;
+    return shader;
 }
 
-int    shader::linkProgram(GLuint shaderProgram)
+int shader::linkProgram(GLuint shaderProgram)
 {
-	glLinkProgram(shaderProgram);
+    glLinkProgram(shaderProgram);
 
-	GLint programLinkStatus; glGetProgramiv(shaderProgram, GL_LINK_STATUS, &programLinkStatus);
-	if(!programLinkStatus)
-	{
-		GLint infoLogLength; glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
-		GLchar *infoLog = new GLchar[infoLogLength];
+    GLint programLinkStatus; 
+        glGetProgramiv(shaderProgram, GL_LINK_STATUS, &programLinkStatus);
 
-		glGetProgramInfoLog(shaderProgram, infoLogLength, &infoLogLength, infoLog);
-		printf("Error: %s %s", "Program linking error: ", infoLog);
+    if(!programLinkStatus)
+    {
+        GLint infoLogLength; 
+            glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
+        GLchar *infoLog = new GLchar[infoLogLength];
 
-		delete infoLog;
+        glGetProgramInfoLog(shaderProgram, infoLogLength, &infoLogLength, infoLog);
+        printf("Error: %s: %s. \n", "Program linking error", infoLog);
 
-		return 0;
-	}
+        delete infoLog;
 
-	glValidateProgram(shaderProgram);
+        return 0;
+    }
 
-	GLint programValidateStatus; glGetProgramiv(shaderProgram, GL_VALIDATE_STATUS, &programValidateStatus);
-	if(!programValidateStatus)
-	{
-		GLint infoLogLength; glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
-		GLchar *infoLog = new GLchar[infoLogLength];
+    glValidateProgram(shaderProgram);
 
-		glGetProgramInfoLog(shaderProgram, infoLogLength, &infoLogLength, infoLog);
-		printf("Error: %s %s", "Program validation error: ", infoLog);
+    GLint programValidateStatus;
+        glGetProgramiv(shaderProgram, GL_VALIDATE_STATUS, &programValidateStatus);
 
-		delete infoLog;
+    if(!programValidateStatus)
+    {
+        GLint infoLogLength; 
+            glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
+        GLchar *infoLog = new GLchar[infoLogLength];
 
-		return 0;
-	}
+        glGetProgramInfoLog(shaderProgram, infoLogLength, &infoLogLength, infoLog);
+        printf("Error: %s: %s. \n", "Program validation error", infoLog);
 
-	return 1;
+        delete infoLog;
+
+        return 0;
+    }
+
+    return 1;
 }
 
 GLuint shader::loadProgram(const char *vertexShaderLocation, const char *fragmentShaderLocation)
 {
-	GLuint vertexShader = loadShader(vertexShaderLocation, GL_VERTEX_SHADER);
+    GLuint vertexShader = loadShader(vertexShaderLocation, GL_VERTEX_SHADER);
 
-	if(!vertexShader)
-		throw std::exception();
+    if(!vertexShader)
+		return 0;
 
-	GLuint fragmentShader = loadShader(fragmentShaderLocation, GL_FRAGMENT_SHADER);
+    GLuint fragmentShader = loadShader(fragmentShaderLocation, GL_FRAGMENT_SHADER);
 
-	if(!fragmentShader)
+    if(!fragmentShader)
+    {
+        glDeleteShader(vertexShader);
+		return 0;
+    }
+
+    GLuint program = glCreateProgram(); if(program == 0)
 	{
-		glDeleteShader(vertexShader);
-		throw std::exception();
+        printf("Error (%s, %s): %s. \n", vertexShaderLocation, fragmentShaderLocation, "Failed to create shader program");
+
+        glDeleteShader(fragmentShader);
+        glDeleteShader(vertexShader);	
+
+		return 0;
 	}
 
-	GLuint program = glCreateProgram();
+    glAttachShader(program, vertexShader);
+    glAttachShader(program, fragmentShader);
 
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
+    int programLinkingStatus = linkProgram(program);
 
-	int programLinkingStatus = linkProgram(program);
+    glDetachShader(program, fragmentShader);
+    glDeleteShader(fragmentShader);
 
-	glDetachShader(program, fragmentShader);
-	glDeleteShader(fragmentShader);
+    glDetachShader(program, vertexShader);
+    glDeleteShader(vertexShader);
 
-	glDetachShader(program, vertexShader);
-	glDeleteShader(vertexShader);
+    if(!programLinkingStatus)
+    {
+        glDeleteProgram(program);
+		return 0;
+    }
 
-	if(!programLinkingStatus)
-        {
-		glDeleteProgram(program);
-		throw std::exception();
-	}
-
-	return program;
+    return program;
 }
 
 shader:: shader(const char *vertexShaderLocation, const char *fragmentShaderLocation)
 {
-	program = loadProgram(vertexShaderLocation, fragmentShaderLocation);
+    program = 
+        loadProgram(vertexShaderLocation, fragmentShaderLocation);
+
+    if(program == 0)
+        throw std::exception();
 }
 
 shader::~shader(void)
 {
-	glDeleteProgram(this->program);
+    glDeleteProgram(this->program);
 }
 

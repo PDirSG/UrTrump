@@ -1,22 +1,13 @@
 #ifndef CommonH_H
-#	define CommonH_H
+#    define CommonH_H
 
-#	include <signal.h>
-#	include <string.h>
+#    include <GL/glew.h>
+//Add a mathematics library for graphics and a library for physics calculations.
 
-#	include <GL/glew.h>
-//Add an importer library for PNG...
+#    include <AL/al.h>
+#    include <AL/alc.h>
+#    include <pthread.h>
 
-#	include <glm/glm.hpp>
-//...
-
-#	include <AL/al.h>
-#	include <AL/alc.h>
-#	include <pthread.h>
-
-#	include <GLFW/glfw3.h>
-
-#	define EXIT_FAILURE 1
-#	define EXIT_SUCCESS 0
+#    include <GLFW/glfw3.h>
 
 #endif

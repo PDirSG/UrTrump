@@ -1,24 +1,24 @@
 #ifndef shader_H
-#	define shader_H
+#    define shader_H
 
 class shader
 {
-	GLuint program;
+    GLuint loadShader(const char *shaderLocation, GLenum shaderType); 
+        int linkProgram(GLuint shaderProgram); 
 
-	GLuint loadShader(const char *shaderLocation, GLenum shaderType); 
-	
-	int    linkProgram(GLuint shaderProgram);
-	GLuint loadProgram(const char *vertexShaderLocation, const char *fragmentShaderLocation);
+    GLuint
+        program;
+    GLuint loadProgram(const char *vertexShaderLocation, const char *fragmentShaderLocation);
 
-	public:
-		shader(const char *vertexShaderLocation, const char *fragmentShaderLocation);
-	       ~shader(void);
+    public:
+        shader(const char *vertexShaderLocation, const char *fragmentShaderLocation);
+       ~shader(void);
 
-		void bind(void)
-		{
-			glUseProgram(this->program);
-		}
+        void bind(void)
+        {
+            glUseProgram(this->program);
+        }
 };
 
-#	include "shader.c"
+#    include "shader.c"
 #endif
