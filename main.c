@@ -43,12 +43,12 @@ int main(void)
 		
         gameRunning = true; while( gameRunning && !glfwWindowShouldClose(window->handler()) )
         {
-		    glfwPollEvents();
+            glfwPollEvents();
 
             render(); glfwSwapBuffers(window->handler());
         }
     }catch(...)
-	{	
+    {	
         return 1;
     }
 
