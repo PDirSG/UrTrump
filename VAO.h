@@ -1,5 +1,5 @@
 #ifndef VAO_H
-#	 define VAO_H
+#    define VAO_H
 
 #    define BUFFER_OFFSET(I) ((char *) NULL + (I)) 
 
