@@ -21,7 +21,7 @@ GLuint shader::loadShader(const char *shaderLocation, GLenum shaderType)
         delete shaderSource;
         fclose(filePointer);
 
-		return 0;
+        return 0;
     }
 
     fclose(filePointer);
@@ -38,13 +38,13 @@ GLuint shader::loadShader(const char *shaderLocation, GLenum shaderType)
     delete shaderSource;
 
 
-	glCompileShader(shader);
+    glCompileShader(shader);
 
     GLint shaderCompileStatus; 
         glGetShaderiv(shader, GL_COMPILE_STATUS, &shaderCompileStatus);
     
     if(!shaderCompileStatus)
-	{
+    {
         GLint infoLogLength; 
             glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);	
         GLchar *infoLog = new GLchar[infoLogLength];
@@ -109,25 +109,25 @@ GLuint shader::loadProgram(const char *vertexShaderLocation, const char *fragmen
     GLuint vertexShader = loadShader(vertexShaderLocation, GL_VERTEX_SHADER);
 
     if(!vertexShader)
-		return 0;
+        return 0;
 
     GLuint fragmentShader = loadShader(fragmentShaderLocation, GL_FRAGMENT_SHADER);
 
     if(!fragmentShader)
     {
         glDeleteShader(vertexShader);
-		return 0;
+        return 0;
     }
 
     GLuint program = glCreateProgram(); if(program == 0)
-	{
+    {
         printf("Error (%s, %s): %s. \n", vertexShaderLocation, fragmentShaderLocation, "Failed to create shader program");
 
         glDeleteShader(fragmentShader);
         glDeleteShader(vertexShader);	
 
-		return 0;
-	}
+        return 0;
+    }
 
     glAttachShader(program, vertexShader);
     glAttachShader(program, fragmentShader);
@@ -143,7 +143,7 @@ GLuint shader::loadProgram(const char *vertexShaderLocation, const char *fragmen
     if(!programLinkingStatus)
     {
         glDeleteProgram(program);
-		return 0;
+        return 0;
     }
 
     return program;
